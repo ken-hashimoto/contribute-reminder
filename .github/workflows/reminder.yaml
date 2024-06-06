@@ -14,7 +14,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           DATE=$(date -u +"%Y-%m-%dT00:00:00Z")
-          USERNAME="ken-hashimoto"
+          USERNAME="${{ github.repository_owner }}"
           QUERY="{\"query\": \"query { user(login: \\\"$USERNAME\\\") { contributionsCollection(from: \\\"$DATE\\\", to: \\\"$DATE\\\") { commitContributionsByRepository { repository { name, defaultBranchRef { name } } contributions(first: 100) { totalCount } } } } }\"}"
 
           RESPONSE=$(curl -H "Authorization: bearer $GITHUB_TOKEN" -H "Content-Type: application/json" -d "$QUERY" https://api.github.com/graphql)
